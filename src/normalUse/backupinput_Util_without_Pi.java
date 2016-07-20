@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @author Zack
  *
  */
-public class Copy_2_of_input_Util {
+public class backupinput_Util_without_Pi {
 
 	//  判断输入的字符串是否是一个数字
 	/** is the string a number?
@@ -169,7 +169,7 @@ public class Copy_2_of_input_Util {
 	 * 
 	 * 例子：=+--+++(987.6*---++6.0-(-6.78)-3)*---++--+(2**3)+(33)+67  返回true
 	 *     =+--+++(987.6*---++6.0-(-)-3)*---++--+(2**3)+(33)+67    返回false
-	 * 
+	 *    =(3+2)**(6+7)/6/907+((-78)/32)+(--(-78)/32)           返回true
 	 */
 	 
 	 
@@ -238,7 +238,7 @@ public class Copy_2_of_input_Util {
 							countX++;
 							if (i>=1) {
 								char prevone=formulation.charAt(i-1);
-								if ((prevone+"").matches("\\)")) {
+								if ((prevone+"").matches("\\)")||((prevone+"").matches("\\d"))) {
 									return false;
 								}
 							}
@@ -301,6 +301,12 @@ public class Copy_2_of_input_Util {
 		
 	return finalString;	
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

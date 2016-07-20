@@ -3,27 +3,31 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import normalUse.input_Util_without_Pi;
-import testUtil.*;
-import utilAssignment.input_Util;
+import regex_String_File_Zack_util.regex_All_util;
+import normalUse.backupinput_Util_without_Pi;
 
+/**
+ * @author Administrator
+ *
+ */
 public class testUtil {
 
 	public static void main(String[] args) {
 		isFomuTestUtilTest();
+		
 	}
 	
 	@Test
 	public  void testExpression() {
-		boolean flag=input_Util_without_Pi.checkAtoZ("abc1");
+		boolean flag=backupinput_Util_without_Pi.checkAtoZ("abc1");
 		assertFalse("this is false",flag);
-		assertTrue("this is True",input_Util_without_Pi.checkAtoZ("def"));
+		assertTrue("this is True",backupinput_Util_without_Pi.checkAtoZ("def"));
 	}
 	
 	
 	@Test
 	public void goTest(){
-		System.out.println(normalUse.input_Util.isNumber("abc"));
+		System.out.println(regex_All_util.isNumber("abc"));
 	}
 	
 	
@@ -74,7 +78,7 @@ public class testUtil {
 		
 //		String formulation="=(3+2)**(6+7)/6/907+((-78)/32)+(---78/32)";
 		String formulation="=-3.43+(3-*+++--+3)";
-		boolean ppp=input_Util_without_Pi.isFomulation(formulation);
+		boolean ppp=backupinput_Util_without_Pi.isFomulation(formulation);
 		System.out.println(ppp);
 		
 		

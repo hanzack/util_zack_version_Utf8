@@ -1,0 +1,15 @@
+
+本文档对这个工作包进行解释说明
+
+
+
+
+目录：
+Html_Doc_Excel_TxT_Util：                这个包是用来处理html，doc,excel,txt等文件的。
+            htmlUtils:              这个文件用来处理html网页，例如读取内容写入到txt中。
+                                                        可以读取url内容到txt中
+
+
+
+constant_table_Util:
+            Constant_table_util.java :    包含了一些常用的常量。
