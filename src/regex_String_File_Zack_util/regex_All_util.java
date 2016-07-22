@@ -13,11 +13,38 @@ import fileHandle_From_Directory.ReadAndWriteFileFromDirectory;
 
 public class regex_All_util {
 		
+    
+    
+    
+    /**
+     * Given a text String, given a regex rule, to find all the text matches the rule, 
+     * and then replace the original symbol by a new symbol in each of the string found.
+     * 
+     * e.g:  text="abcde 657.32 89.73 haha"   regString="[0-9]+[\\.][0-9]+"    originSym="."; newSym="$"
+     * The  return is :   "abcde 657$32 89$73 haha"
+     * 
+     * @param text: the text you want to handle
+     * @param regString: reg rule like: "[0-9]+[\\.][0-9]+"
+     * @param originSym: originSym
+     * @param newSym:    newSym
+     * return: result String
+     */
+    public static String replaceMarkInStringAccordingReg(String text,String regString,String originSym,String newSym ){
+        Pattern pattern=Pattern.compile(regString);
+        Matcher matcher=pattern.matcher(text);
+        while(matcher.find()){
+            String originFind=matcher.group();
+            String tempFind=matcher.group().replace(originSym, newSym);
+            text=text.replace(originFind, tempFind);
+        }
+        return text;
+    }
+    
 	
-	/** ÓÃÕıÔò±í´ïÊ½ÎÄ¼şÆ¥ÅäÎÄ¼şÄÚÈİ    °Ñ·ûºÏµÄÄÚÈİ¼ÓÈëµ½listÖĞ²¢·µ»Ø
-	 * ¸ø¶¨Ò»¸öÕıÔò±í´ïÊ½µÄ×¼ÔòµÄÎÄ¼ş£¬ Ã¿Ò»ĞĞÊÇÒ»¸öÕıÔò±í´ïÊ½¡£ È»ºó´«ÈëÎÄÕÂ£¬Æ¥Åä³ö¶ÔÓ¦µÄÄÚÈİ, ²¢½«ÄÚÈİ·µ»Ø¡£
-	 * @param regexFilePath Ò»¸öĞ´×ÅÕıÔò±í´ïÊ½¹æÔòµÄÎÄ¼ş
-	 * @param sourceStr   ĞèÒªÆ¥ÅäµÄÎÄÕÂÄÚÈİ
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ä¼ï¿½Æ¥ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½    ï¿½Ñ·ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½İ¼ï¿½ï¿½ëµ½listï¿½Ğ²ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ·ï¿½ï¿½Ø¡ï¿½
+	 * @param regexFilePath Ò»ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+	 * @param sourceStr   ï¿½ï¿½ÒªÆ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public static List<String> getContentByRegexFileReturnList(String regexFilePath, String content){
@@ -28,13 +55,13 @@ public class regex_All_util {
 		}
 		
 		File file=new File(regexFilePath);
-		//Ñ­»·¶ÁÈ¡¸ÃÎÄ¼şµÄÃ¿Ò»ĞĞµÄ×¼Ôò
+		//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ğµï¿½×¼ï¿½ï¿½
 		try {
 			FileReader fReader=new FileReader(file);
 			BufferedReader bf=new BufferedReader(fReader);
-			String tempLine=""; //¼ÇÂ¼Ã¿Ò»ĞĞµÄ¹æÔò
+			String tempLine=""; //ï¿½ï¿½Â¼Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½
 			while ((tempLine=bf.readLine())!=null) {
-				//»ñÈ¡ÁËÃ¿Ò»ĞĞµÄ¹æÔò£¬ÓÃÕûÆªÎÄÕÂÈ¥Æ¥Åä¡£
+				//ï¿½ï¿½È¡ï¿½ï¿½Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æªï¿½ï¿½ï¿½ï¿½È¥Æ¥ï¿½ä¡£
 				 Pattern pattern=Pattern.compile(tempLine);
 				 Matcher matcher=pattern.matcher(content);
 				 while (matcher.find()) {
@@ -44,7 +71,7 @@ public class regex_All_util {
 //					 result=result+tempContentString+" ";
 				}
 			}
-			//¹Ø±Õ¶ÁÈëÁ÷
+			//ï¿½Ø±Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 			bf.close();
 			fReader.close();
 			
@@ -62,10 +89,10 @@ public class regex_All_util {
 	
 	
 	
-	/** ÓÃÕıÔò±í´ïÊ½ÎÄ¼şÆ¥ÅäÎÄ¼şÄÚÈİ    °Ñ·ûºÏµÄÄÚÈİ¼ÓÈëµ½listÖĞ²¢·µ»Ø
-	 * ¸ø¶¨Ò»¸öÕıÔò±í´ïÊ½µÄ×¼ÔòµÄÎÄ¼ş£¬ Ã¿Ò»ĞĞÊÇÒ»¸öÕıÔò±í´ïÊ½¡£ È»ºó´«ÈëÎÄÕÂ£¬Æ¥Åä³ö¶ÔÓ¦µÄÄÚÈİ, ²¢½«ÄÚÈİ·µ»Ø¡£
-	 * @param regexFilePath Ò»¸öĞ´×ÅÕıÔò±í´ïÊ½¹æÔòµÄÎÄ¼ş
-	 * @param sourceStr   ĞèÒªÆ¥ÅäµÄÎÄÕÂÄÚÈİ
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ä¼ï¿½Æ¥ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½    ï¿½Ñ·ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½İ¼ï¿½ï¿½ëµ½listï¿½Ğ²ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ·ï¿½ï¿½Ø¡ï¿½
+	 * @param regexFilePath Ò»ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+	 * @param sourceStr   ï¿½ï¿½ÒªÆ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public static String getContentByRegexFileReturnStr(String regexFilePath, String content){
@@ -76,13 +103,13 @@ public class regex_All_util {
 		}
 		
 		File file=new File(regexFilePath);
-		//Ñ­»·¶ÁÈ¡¸ÃÎÄ¼şµÄÃ¿Ò»ĞĞµÄ×¼Ôò
+		//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ğµï¿½×¼ï¿½ï¿½
 		try {
 			FileReader fReader=new FileReader(file);
 			BufferedReader bf=new BufferedReader(fReader);
-			String tempLine=""; //¼ÇÂ¼Ã¿Ò»ĞĞµÄ¹æÔò
+			String tempLine=""; //ï¿½ï¿½Â¼Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½
 			while ((tempLine=bf.readLine())!=null) {
-				//»ñÈ¡ÁËÃ¿Ò»ĞĞµÄ¹æÔò£¬ÓÃÕûÆªÎÄÕÂÈ¥Æ¥Åä¡£
+				//ï¿½ï¿½È¡ï¿½ï¿½Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æªï¿½ï¿½ï¿½ï¿½È¥Æ¥ï¿½ä¡£
 				 Pattern pattern=Pattern.compile(tempLine);
 				 Matcher matcher=pattern.matcher(content);
 				 while (matcher.find()) {
@@ -92,7 +119,7 @@ public class regex_All_util {
 					 result=result+tempContentString+" ";
 				}
 			}
-			//¹Ø±Õ¶ÁÈëÁ÷
+			//ï¿½Ø±Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 			bf.close();
 			fReader.close();
 			
@@ -122,11 +149,11 @@ public class regex_All_util {
 	
 	
 	
-	/** ÓÃÕıÔò±í´ïÊ½ÎÄ¼şÆ¥ÅäÎÄ¼şÄÚÈİ
-	 * ¸ø¶¨Ò»¸öÕıÔò±í´ïÊ½µÄ×¼ÔòµÄÎÄ¼ş£¬ Ã¿Ò»ĞĞÊÇÒ»¸öÕıÔò±í´ïÊ½¡£ È»ºó´«ÈëÎÄÕÂ£¬Æ¥Åä³ö¶ÔÓ¦µÄÄÚÈİ, ²¢½«ÄÚÈİĞ´ÈëÖ¸¶¨ÎÄ¼şÖĞÈ¥¡£
-	 * @param regexFilePath Ò»¸öĞ´×ÅÕıÔò±í´ïÊ½¹æÔòµÄÎÄ¼ş
-	 * @param sourceStr   ĞèÒªÆ¥ÅäµÄÎÄÕÂ
-	 * @param splitMark   ¸Ã±äÀ´ÄÇ¸öÔÚÕâÀïÃ»ÓĞ×÷ÓÃ
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ä¼ï¿½Æ¥ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È¥ï¿½ï¿½
+	 * @param regexFilePath Ò»ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+	 * @param sourceStr   ï¿½ï¿½ÒªÆ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param splitMark   ï¿½Ã±ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public static String getContentByRegexFileReturnStr(String regexFilePath, String sourceStr,String splitMark){
@@ -140,13 +167,13 @@ public class regex_All_util {
 		}
 		
 		File file=new File(regexFilePath);
-		//Ñ­»·¶ÁÈ¡¸ÃÎÄ¼şµÄÃ¿Ò»ĞĞµÄ×¼Ôò
+		//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ğµï¿½×¼ï¿½ï¿½
 		try {
 			FileReader fReader=new FileReader(file);
 			BufferedReader bf=new BufferedReader(fReader);
-			String tempLine=""; //¼ÇÂ¼Ã¿Ò»ĞĞµÄ¹æÔò
+			String tempLine=""; //ï¿½ï¿½Â¼Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½
 			while ((tempLine=bf.readLine())!=null) {
-				//»ñÈ¡ÁËÃ¿Ò»ĞĞµÄ¹æÔò£¬ÓÃÕûÆªÎÄÕÂÈ¥Æ¥Åä¡£
+				//ï¿½ï¿½È¡ï¿½ï¿½Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æªï¿½ï¿½ï¿½ï¿½È¥Æ¥ï¿½ä¡£
 				 Pattern pattern=Pattern.compile(tempLine);
 				 Matcher matcher=pattern.matcher(sourceStr);
 				 while (matcher.find()) {
@@ -155,7 +182,7 @@ public class regex_All_util {
 					 result=result+tempContentString+" ";
 				}
 			}
-			//¹Ø±Õ¶ÁÈëÁ÷
+			//ï¿½Ø±Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 			bf.close();
 			fReader.close();
 			
@@ -171,14 +198,14 @@ public class regex_All_util {
 	
 	
 	
-	/** ÓÃÕıÔò±í´ïÊ½ÎÄ¼şÆ¥ÅäÎÄ¼şÄÚÈİ
-	 * ¸ø¶¨Ò»¸öÕıÔò±í´ïÊ½µÄ×¼ÔòµÄÎÄ¼ş£¬ Ã¿Ò»ĞĞÊÇÒ»¸öÕıÔò±í´ïÊ½¡£ È»ºó´«ÈëÎÄÕÂ£¬Æ¥Åä³ö¶ÔÓ¦µÄÄÚÈİ, ²¢½«ÄÚÈİĞ´ÈëÖ¸¶¨ÎÄ¼şÖĞÈ¥¡£
-	 * @param regexFilePath Ò»¸öĞ´×ÅÕıÔò±í´ïÊ½¹æÔòµÄÎÄ¼ş
-	 * @param sourceStr   ĞèÒªÆ¥ÅäµÄÎÄÕÂ
-	 * @param splitMark   °Ñ½á¹û°´ÕÕ·Ö¸î·ûºÅ½øĞĞ·Ö¸î±£´æ splitMark   °Ñ½á¹û°´ÕÕ·Ö¸î·ûºÅ½øĞĞ·Ö¸î±£´æ, Ğ´Èëµ½ÎÄ¼şÖĞ¡£Ä¬ÈÏÊÇÆ¥Åäµ½Ò»¸öĞ´ÈëÎÄ¼ş£¬È»ºóÒÔ»»ĞĞ×÷Îª·Ö¸ô·ûºÅ
-	 * @param toPath       ĞèÒª°ÑÆ¥ÅäµÄ½á¹û´æÈëµ½ÄÄÀïÈ¥    ¿ÉÒÔ²»Ö¸¶¨
-	 * @param newFileName  ĞèÒª´æÈëµÄÎÄ¼şÃû	   ¿ÉÒÔ²»Ö¸¶¨
-	 * @param fileSurfix   ÎÄ¼şµÄºó×ºÃû¡£ ¿ÉÒÔ²»Ö¸¶¨
+	/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ä¼ï¿½Æ¥ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È¥ï¿½ï¿½
+	 * @param regexFilePath Ò»ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+	 * @param sourceStr   ï¿½ï¿½ÒªÆ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param splitMark   ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½Õ·Ö¸ï¿½ï¿½ï¿½Å½ï¿½ï¿½Ğ·Ö¸î±£ï¿½ï¿½ splitMark   ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½Õ·Ö¸ï¿½ï¿½ï¿½Å½ï¿½ï¿½Ğ·Ö¸î±£ï¿½ï¿½, Ğ´ï¿½ëµ½ï¿½Ä¼ï¿½ï¿½Ğ¡ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½äµ½Ò»ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param toPath       ï¿½ï¿½Òªï¿½ï¿½Æ¥ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½È¥    ï¿½ï¿½ï¿½Ô²ï¿½Ö¸ï¿½ï¿½
+	 * @param newFileName  ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½	   ï¿½ï¿½ï¿½Ô²ï¿½Ö¸ï¿½ï¿½
+	 * @param fileSurfix   ï¿½Ä¼ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô²ï¿½Ö¸ï¿½ï¿½
 	 * @return
 	 */
 	public static String getContentByRegexFileWrtToFile(String regexFilePath, String sourceStr,String splitMark, String toPath,String newFileName, String fileSurfix){
@@ -192,13 +219,13 @@ public class regex_All_util {
 		}
 		
 		File file=new File(regexFilePath);
-		//Ñ­»·¶ÁÈ¡¸ÃÎÄ¼şµÄÃ¿Ò»ĞĞµÄ×¼Ôò
+		//Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ğµï¿½×¼ï¿½ï¿½
 		try {
 			FileReader fReader=new FileReader(file);
 			BufferedReader bf=new BufferedReader(fReader);
-			String tempLine=""; //¼ÇÂ¼Ã¿Ò»ĞĞµÄ¹æÔò
+			String tempLine=""; //ï¿½ï¿½Â¼Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½
 			while ((tempLine=bf.readLine())!=null) {
-				//»ñÈ¡ÁËÃ¿Ò»ĞĞµÄ¹æÔò£¬ÓÃÕûÆªÎÄÕÂÈ¥Æ¥Åä¡£
+				//ï¿½ï¿½È¡ï¿½ï¿½Ã¿Ò»ï¿½ĞµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æªï¿½ï¿½ï¿½ï¿½È¥Æ¥ï¿½ä¡£
 				 Pattern pattern=Pattern.compile(tempLine);
 				 Matcher matcher=pattern.matcher(sourceStr);
 				 while (matcher.find()) {
@@ -207,7 +234,7 @@ public class regex_All_util {
 					ReadAndWriteFileFromDirectory.writeStringToFile(tempContentString, toPath, newFileName, fileSurfix);
 				}
 			}
-			//¹Ø±Õ¶ÁÈëÁ÷
+			//ï¿½Ø±Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 			bf.close();
 			fReader.close();
 			
@@ -223,8 +250,8 @@ public class regex_All_util {
 	
 
 	/**
-	 * ÊäÈëÒ»¸ö×Ö·û´®£¬ È¥µôÀïÃæÁ¬ĞøÖØ¸´³öÏÖµÄ×Ö·û¡£ ÀïÈçÊäÈëaabbcccdd£¬ ·µ»Øabcd.
-	 * ÊäÈë  aabbbcccbbbddef   ·µ»ØµÄÊÇabcbdef   ×¢ÒâÕâÀïÃæ»¹ÊÇÓĞÁ½¸öb
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aabbcccddï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½abcd.
+	 * ï¿½ï¿½ï¿½ï¿½  aabbbcccbbbddef   ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½abcbdef   ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½b
 	 */
 	public static String removeContinueRepeatLetter(String temp){
 		String abcString=temp.replaceAll("(\\w)(\\1)*","$1");
@@ -235,7 +262,7 @@ public class regex_All_util {
 	
 	/**
 	 * @param temp
-	 * @return     È¥µôËùÓĞÖØ¸´µÄ×Ö·û´®¡£
+	 * @return     È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static String removeAllRepeatLetter(String temp){
 		String abcString="";
@@ -272,7 +299,7 @@ public class regex_All_util {
 	    }  
 	 
 		
-		/**   ´«ÈëÒ»¸öÕıÔò±í´ïÊ½, ´«ÈëÎÄÕÂ, ÕÒµ½ÎÄÕÂÀï·ûºÏÕıÔò±í´ïÊ½µÄµÚÒ»¸öÄÚÈİ.
+		/**   ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		 * @param regexString
 		 * @param sourceStr
 		 * @return
@@ -295,7 +322,7 @@ public class regex_All_util {
 		}
 		
 		
-		/**ÊÇ·ñÊÇÒ»¸ö×ÖÄ¸
+		/**ï¿½Ç·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ä¸
 		 * @param temp
 		 * @return
 		 */
@@ -315,7 +342,7 @@ public class regex_All_util {
 		
 		
 		 
-		/**  ÅĞ¶ÏÊÇ·ñÊÇÓÃ»§Ãû
+		/**  ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
 		 * @param username
 		 * @return
 		 */
@@ -326,8 +353,8 @@ public class regex_All_util {
 		
 		
 		/**
-		 * ´«ÈëhtmlÎÄ¼ş£¬ÕÒµ½ÀïÃæ·ûºÏµÄÁ´½Ó 
-		 * ÀıÈç´«Èë<link rel="dns-prefetch" href="https://s0.ssl.qhimg.com"/>
+		 * ï¿½ï¿½ï¿½ï¿½htmlï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ 
+		 * ï¿½ï¿½ï¿½ç´«ï¿½ï¿½<link rel="dns-prefetch" href="https://s0.ssl.qhimg.com"/>
 		 * @param content
 		 */
 		public static String getUrlFromHtmlContentsTag(String content){
@@ -340,12 +367,12 @@ public class regex_All_util {
 			}
 			//<link rel="dns-prefetch" href="https://s0.ssl.qhimg.com"/>
 			//<a(.*)href\\s*=\\s*(\"([^\">]*)\"|[^\\s>])(.*)>
-//			String abcString="<a class=\"play-img\" href=\"/html/DQ221848.html\" title=\"Ä±É±ËÆË®Äê»ª/ÔÚÏßµã²¥/Ñ¸À×ÏÂÔØ\" target=\"_blank\"><link rel=\"dns-prefetch\" href=\"https://s0.ssl.qhimg.com\"/>";
-//			String abcString="<a class=\"play-img\" href=\"/html/DQ221848.html\" title=\"Ä±É±ËÆË®Äê»ª/ÔÚÏßµã²¥/Ñ¸À×ÏÂÔØ\" target=\"_blank\">";
+//			String abcString="<a class=\"play-img\" href=\"/html/DQ221848.html\" title=\"Ä±É±ï¿½ï¿½Ë®ï¿½ê»ª/ï¿½ï¿½ï¿½ßµã²¥/Ñ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\" target=\"_blank\"><link rel=\"dns-prefetch\" href=\"https://s0.ssl.qhimg.com\"/>";
+//			String abcString="<a class=\"play-img\" href=\"/html/DQ221848.html\" title=\"Ä±É±ï¿½ï¿½Ë®ï¿½ê»ª/ï¿½ï¿½ï¿½ßµã²¥/Ñ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\" target=\"_blank\">";
 //			String abcString="<a klsk>";
-			//»ñÈ¡Á´½Ó Õâ¸öÊÇ×îĞÂµÄºÃÓÃµÄ
+			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄºï¿½ï¿½Ãµï¿½
 			String linkString="<(a|link)[^<>]*href=(\"?)([^><\"\\s]*)(\"?)([^<>]*)>";
-			//ÏÂÃæÕâ¸öÊÇÓĞÎÊÌâµÄ£¬»á°ÑºÜ¶à±êÇ©µ±³ÉÒ»¸ö´¦Àí¡£
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ÑºÜ¶ï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //			String linkString="<a(.*)href\\s*=\\s*(\"([^\">]*)\"|[^\\s>])(.*)>";
 			Pattern pattern=Pattern.compile(linkString);
 			Matcher matcher=pattern.matcher(abcString);

@@ -658,7 +658,30 @@ public class ReadAndWriteFileFromDirectory {
 	}
 	
 	
-	
+	 /**
+	  * 读取文件里的内容并进行返回
+	   * @param eachFile
+	   * @return
+	   */
+	  private static String readBigFileReturnContent(File eachFile) {
+	      // TODO Auto-generated method stub
+	      String content="";
+	      FileInputStream inputStream=null;
+	      Scanner sc=null;
+	      try {
+	          inputStream=new FileInputStream(eachFile);
+	      } catch (FileNotFoundException e) {
+	          // TODO Auto-generated catch block
+	          e.printStackTrace();
+	      }
+	      sc=new Scanner(inputStream,"UTF-8");
+	      while(sc.hasNext()){
+	          String line=sc.nextLine();
+	          content=content+line;
+	      }
+	      sc.close();
+	      return content;
+	  }
 	
 	
 }
